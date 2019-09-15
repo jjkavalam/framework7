@@ -35,9 +35,7 @@ const watch = {
   all() {
     gulp.watch(['./src/core/**/*.js'], gulp.series(
       'core-js',
-      'core-components',
-      'ks-react',
-      'ks-vue'
+      'core-components'
     ));
     gulp.watch(['./src/core/**/*.d.ts'], gulp.series(
       'core-typings'

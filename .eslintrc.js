@@ -1,11 +1,9 @@
 module.exports = {
   'extends': [
-    'plugin:react/recommended',
-    'airbnb-base',
+    'airbnb-base'
   ],
   'plugins': [
-    'import',
-    'react',
+    'import'
   ],
   'globals': {
     "window": true,
@@ -38,9 +36,6 @@ module.exports = {
       props: false,
     }],
     'prefer-destructuring': ['off'],
-    'react/react-in-jsx-scope': ['off'],
-    'react/no-string-refs': ['off'],
-    'react/prop-types': ['off'],
     'linebreak-style': ['off']
   },
 };
