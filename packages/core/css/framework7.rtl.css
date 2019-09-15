@@ -7,7 +7,7 @@
  *
  * Released under the MIT License
  *
- * Released on: August 21, 2019
+ * Released on: September 15, 2019
  */
 
 /*====================
@@ -3831,6 +3831,7 @@ html.device-full-viewport body {
   overflow: hidden;
   text-overflow: hidden;
   -webkit-line-clamp: var(--f7-list-item-text-max-lines);
+  -webkit-box-orient: vertical;
   display: -webkit-box;
   font-size: var(--f7-list-item-text-font-size);
   font-weight: var(--f7-list-item-text-font-weight);

@@ -7,7 +7,7 @@
  *
  * Released under the MIT License
  *
- * Released on: August 21, 2019
+ * Released on: September 15, 2019
  */
 
 (function (global, factory) {
@@ -5314,26 +5314,27 @@
    * @return {!function(Object=, Object=)}
    */
   function compile (str, options) {
-    return tokensToFunction(parse(str, options))
+    return tokensToFunction(parse(str, options), options)
   }
 
   /**
    * Expose a method for transforming tokens into the path function.
    */
-  function tokensToFunction (tokens) {
+  function tokensToFunction (tokens, options) {
     // Compile all the tokens into regexps.
     var matches = new Array(tokens.length);
 
     // Compile all the patterns before compilation.
     for (var i = 0; i < tokens.length; i++) {
       if (typeof tokens[i] === 'object') {
-        matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$');
+        matches[i] = new RegExp('^(?:' + tokens[i].pattern + ')$', flags(options));
       }
     }
 
     return function (data, options) {
       var path = '';
       var encode = (options && options.encode) || encodeURIComponent;
+      var validate = options ? options.validate !== false : true;
 
       for (var i = 0; i < tokens.length; i++) {
         var token = tokens[i];
@@ -5360,7 +5361,7 @@
           for (var j = 0; j < value.length; j++) {
             segment = encode(value[j], token);
 
-            if (!matches[i].test(segment)) {
+            if (validate && !matches[i].test(segment)) {
               throw new TypeError('Expected all "' + token.name + '" to match "' + token.pattern + '"')
             }
 
@@ -5373,7 +5374,7 @@
         if (typeof value === 'string' || typeof value === 'number' || typeof value === 'boolean') {
           segment = encode(String(value), token);
 
-          if (!matches[i].test(segment)) {
+          if (validate && !matches[i].test(segment)) {
             throw new TypeError('Expected "' + token.name + '" to match "' + token.pattern + '", but got "' + segment + '"')
           }
 
